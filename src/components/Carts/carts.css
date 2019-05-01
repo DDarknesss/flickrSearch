@@ -1,0 +1,14 @@
+.carts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.carts button{
+    display: flex;
+    flex-direction: row;
+    background: lightgreen;
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+}
