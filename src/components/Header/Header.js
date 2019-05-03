@@ -1,5 +1,5 @@
 import React from 'react';
-import Search from '../Search/search'
+import Search from '../Search/Search'
 import './header.css'
 
 const  Header = () => {

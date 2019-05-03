@@ -2,5 +2,13 @@
     border: 1px dotted lightblue;
     width: 80%;
     height: 80%;
+    min-height: 350px;
     margin: inherit;
+}
+
+img {
+    width:250px;
+    height: 250px;
+    border-radius: 50%;
+    margin: 10px;
 }
