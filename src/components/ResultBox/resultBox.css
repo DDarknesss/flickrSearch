@@ -1,10 +1,16 @@
 .resultBox{
     border: 1px dotted lightblue;
+    min-height: 350px;
+    margin: inherit;
+}
+
+.maintBox{
     width: 80%;
     height: 80%;
     min-height: 350px;
     margin: inherit;
 }
+
 
 img {
     width:250px;
