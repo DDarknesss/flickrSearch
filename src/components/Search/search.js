@@ -16,15 +16,15 @@ const  Search = () => {
     setTag(searchValue);
   }
 
-  
   return (
     <div className="search">
-        <input  type="search"
+        <input  
+          type="text"
           placeholder="Search.." 
           name="search" 
           onChange={handleChange}
         />
-        <button onClick= {hangleSearch}>
+        <button type="button" onClick= {hangleSearch}>
           <i className="fa fa-search"/>
         </button>
     </div>

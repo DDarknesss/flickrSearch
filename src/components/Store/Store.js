@@ -3,15 +3,16 @@ import { EventEmitter } from 'events';
 class  Store extends EventEmitter {
     constructor(props){
         super(props)
-        this.search = { tag: 'recent'}
+        this.search = { tag: 'cat'}
     }
 
-    getTag = () => {
+    getTag() {
         return this.search.tag;
     }
 
     setTag = (value) => {
         this.search.tag = value;
+        this.emit("tagUpdate");
     }
 
 }

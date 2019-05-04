@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Store from '../Store/Store'
 import './carts.css'
+
 
 const handleCheck = (val) => {
   console.log('checked',val)
 }
 
+
+
 const  Carts = () => {
+
+  const [tagVal, setTagVal] = useState(Store.getTag());
   const value = 'test';
-  
+  Store.on('tagUpdate', () => setTagVal(Store.getTag()));
+
+
   return (
     <div className="carts">
-        <button onClick= {() => handleCheck(value)} > get by props from input </button>
-        <button onClick= {() => handleCheck(value)} > Dynamic content </button>
+        <button onClick= {() => handleCheck(value)} > {tagVal} </button>
     </div>
   );
 }

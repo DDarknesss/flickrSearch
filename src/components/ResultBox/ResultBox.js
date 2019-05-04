@@ -11,18 +11,16 @@ export default class ResultBox extends Component {
     super();
     this.state = {
       pictures: [ ],
-      tag: Store.getTag()
-    };
-    
+      tag: Store.getTag(),
+      API_KEY: `6853db01b5e59ad83436052c23de4c9d`,
+      };
+    this.link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.state.API_KEY}&tags=${this.state.tag}&per_page=5&format=json&nojsoncallback=1`
+    Store.on('tagUpdate', () => this.onChange());
   }
 
 
   onChange () {
-    const API_KEY = `6853db01b5e59ad83436052c23de4c9d`;
-
-    const link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&tags=${this.state.tag}&per_page=5&format=json&nojsoncallback=1`
-    
-    fetch(link)
+    fetch(this.link)
       .then( response => response.json())
       .then( myJson => {
         const picArray = myJson.photos.photo.map((pic, id) => {
@@ -32,23 +30,17 @@ export default class ResultBox extends Component {
               src={srcPath} 
               key={id} 
               onDragStart={this.dragStart} draggable="true"
-              id="dragtarget"
+              id={id} 
             />
           )
         })
         this.setState({ pictures: picArray });
-     })
+     }).catch(err=> console.log(err))
   }
   
   componentDidMount(){
-    this.onChange()
+   // this.onChange();  bug.Loop
   }
-
-
-  // componentDidUpdate() {
-  //   console.log(' 1')
-  //   this.onChange()
-  // }
 
   dragStart(event) {
     event.dataTransfer.setData("image", event.target.id);
