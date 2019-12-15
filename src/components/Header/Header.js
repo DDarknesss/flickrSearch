@@ -5,7 +5,7 @@ import './header.css'
 const  Header = () => {
   return (
     <div className="header">
-        <p> Serch flickr here: </p>
+        <span> Serch flickr here: </span>
         <Search />
     </div>
   );

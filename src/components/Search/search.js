@@ -1,32 +1,32 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import './search.css'
-import Store from '../Store/Store'
+import { setSearchTag } from '../../Store/actions/actions'
+import { useDispatch, useSelector } from "react-redux";
 
-const  Search = () => {
-
-  const [tag, setTag] = useState(Store.getTag());
+const Search = () => {
+  const tagValue = useSelector(store => store.tag);
 
   const hangleSearch = () => {
-    Store.setTag(tag);
+    setSearchTag(tagValue);
   }
 
   const handleChange = e => {
     const searchValue = e.target.value;
-    setTag(searchValue);
+    setSearchTag(searchValue);
   }
 
   return (
     <div className="search">
-        <input  
-          type="text"
-          placeholder="Search.." 
-          name="search" 
-          onChange={handleChange}
-        />
-        <button type="button" onClick= {hangleSearch}>
-          <i className="fa fa-search"/>
-        </button>
+      <input
+        type="text"
+        placeholder="Search.."
+        name="search"
+        onChange={handleChange}
+      />
+      <button type="button" onClick={hangleSearch}>
+        <i className="fa fa-search" />
+      </button>
     </div>
   );
 }

@@ -1,81 +1,78 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import Carts from '../Carts/Carts'
-import Store from '../Store/Store'
+import Store from '../../Store/Store'
 import Basket from '../Basket/Basket'
 import './resultBox.css'
 import '../Basket/basket.css'
 
+const ResultBox = props => {
+  const apiKey = useSelector(store => store.API_KEY);
+  const tagValue = useSelector(store => store.tag);
+  const [state, useIngState] = useState({
+    pictures: [],
+  });
 
-export default class ResultBox extends Component {
-  constructor(){
-    super();
-    this.state = {
-      pictures: [ ],
-      tag: Store.getTag(),
-      API_KEY: `6853db01b5e59ad83436052c23de4c9d`,
-      };
-    this.link = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.state.API_KEY}&tags=${this.state.tag}&per_page=5&format=json&nojsoncallback=1`
-    Store.on('tagUpdate', () => this.onChange());
-  }
+  const api = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tagValue}&per_page=5&format=json&nojsoncallback=1`
+  Store.on('tagUpdate', () => onChange());
 
 
-  onChange () {
-    fetch(this.link)
-      .then( response => response.json())
-      .then( myJson => {
+
+  const onChange = () => {
+    fetch(api)
+      .then(response => response.json())
+      .then(myJson => {
         const picArray = myJson.photos.photo.map((pic, id) => {
           const srcPath = `https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`;
-          return(
-            <img alt={this.state.tag} 
-              src={srcPath} 
-              key={id} 
-              onDragStart={this.dragStart} draggable="true"
-              id={id} 
+          return (
+            <img alt={state.tag}
+              src={srcPath}
+              key={id}
+              onDragStart={dragStart} draggable="true"
+              id={id}
             />
           )
         })
-        this.setState({ pictures: picArray });
-     }).catch(err=> console.log(err))
-  }
-  
-  componentDidMount(){
-   // this.onChange();  bug.Loop
+        PictureChange(picArray)
+      }).catch(err => console.log('You have an err:', err))
   }
 
-  dragStart(event) {
+  const PictureChange = (picArray) => useIngState({ pictures: picArray })
+
+  const dragStart = (event) => {
     event.dataTransfer.setData("image", event.target.id);
   }
-  
-  allowDrop(event) {
+
+  const allowDrop = (event) => {
     event.preventDefault();
   }
-  
-  drop(event) {
+
+  const drop = (event) => {
     event.preventDefault();
     const data = event.dataTransfer.getData("image");
     event.target.appendChild(document.getElementById(data));
-  
-  }
 
-  render (){
-    return (  <div className='maintBox'>
-      
-      <div className="resultBox" >
-        <div>
-            {this.state.pictures}
-        </div>
-      </div>
-      
-      <Carts />
-      
-      <div id="droptarget"
-        className="basket" 
-        onDrop={this.drop} 
-        onDragOver={this.allowDrop}>
-       <Basket />
-      </div>
-
-   </div>
-    );
   }
+  return (<div className='maintBox'>
+
+    <div className="resultBox" >
+      <div>
+        {state.pictures}
+      </div>
+    </div>
+
+    <Carts />
+
+    <div id="droptarget"
+      className="basket"
+      onDrop={drop}
+      onDragOver={allowDrop}>
+      <Basket />
+    </div>
+
+  </div>
+  );
 }
+
+
+export default ResultBox;

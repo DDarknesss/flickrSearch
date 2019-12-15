@@ -1,5 +1,4 @@
 .basket{
-    border: 1px dotted lightblue;
     min-height: 200px;
-    margin: inherit;
+    border: 1px dotted lightblue;
 }

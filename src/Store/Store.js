@@ -1,9 +1,9 @@
 import { EventEmitter } from 'events';
 
-class  Store extends EventEmitter {
-    constructor(props){
+class Store extends EventEmitter {
+    constructor(props) {
         super(props)
-        this.search = { tag: 'cat'}
+        this.search = { tag: 'cat' }
     }
 
     getTag() {

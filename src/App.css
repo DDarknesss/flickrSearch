@@ -5,9 +5,9 @@ body{
 }
 
 .App {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
   margin: auto;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
 }

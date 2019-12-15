@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Store from '../Store/Store'
+import Store from '../../Store/Store'
 import './carts.css'
 
 
@@ -12,13 +12,12 @@ const handleCheck = (val) => {
 const  Carts = () => {
 
   const [tagVal, setTagVal] = useState(Store.getTag());
-  const value = 'test';
   Store.on('tagUpdate', () => setTagVal(Store.getTag()));
 
 
   return (
     <div className="carts">
-        <button onClick= {() => handleCheck(value)} > {tagVal} </button>
+        <button onClick= {handleCheck} > {tagVal} </button>
     </div>
   );
 }
